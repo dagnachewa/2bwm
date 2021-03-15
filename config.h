@@ -13,13 +13,13 @@ static const float    resize_keep_aspect_ratio= 1.03;
 ///---Offsets---///
 /*0)offsetx          1)offsety
  *2)maxwidth         3)maxheight */
-static const uint8_t offsets[] = {0,0,0,0};
+static const uint8_t offsets[] = {0,24,0,24};
 ///---Colors---///
 /*0)focuscol         1)unfocuscol
  *2)fixedcol         3)unkilcol
  *4)fixedunkilcol    5)outerbordercol
  *6)emptycol         */
-static const char *colors[] = {"#35586c","#333333","#7a8c5c","#ff6666","#cc9933","#0d131a","#000000"};
+static const char *colors[] = {"#FE5C47","#FFB308","#FF3956","#493B78","#FC4438","#BF1582","#03B8ED"};
 /* if this is set to true the inner border and outer borders colors will be swapped */
 static const bool inverted_colors = true;
 ///---Cursor---///
@@ -32,7 +32,7 @@ static const bool inverted_colors = true;
 /*0) Outer border size. If you put this negative it will be a square.
  *1) Full borderwidth    2) Magnet border size
  *3) Resize border size  */
-static const uint8_t borders[] = {3,5,5,4};
+static const uint8_t borders[] = {6,12,6,12};
 /* Windows that won't have a border.
  * It uses substring comparison with what is found in the WM_NAME
  * attribute of the window. You can test this using `xprop WM_NAME`
@@ -40,7 +40,13 @@ static const uint8_t borders[] = {3,5,5,4};
 #define LOOK_INTO "WM_NAME"
 static const char *ignore_names[] = {"bar", "xclock"};
 ///--Menus and Programs---///
-static const char *menucmd[]   = { "", NULL };
+static const char *menucmd[]   = { "rofi", "-show", "run", NULL };
+static const char *terminal[]  = { "xst", NULL};
+static const char *filemanager[] = { "thunar", NULL};
+static const char *editor[]    = {"vim", NULL};
+static const char *click1[]    = { "xdotool","click1", "1", NULL};
+static const char *click2[]    = { "xdotool","click2", "1", NULL};
+static const char *click3[]    = { "xdotool","click3", "1", NULL};
 ///--Custom foo---///
 static void halfandcentered(const Arg *arg)
 {
@@ -193,7 +199,10 @@ static key keys[] = {
     {  MOD |SHIFT,        XK_Right,      cursor_move,       {.i=TWOBWM_CURSOR_RIGHT}},
     {  MOD |SHIFT,        XK_Left,       cursor_move,       {.i=TWOBWM_CURSOR_LEFT}},
     // Start programs
-    {  MOD ,              XK_w,          start,             {.com = menucmd}},
+    {  MOD ,              XK_d,          start,             {.com = menucmd}},
+    {  MOD ,              XK_Return,     start,             {.com = terminal}},
+    {  MOD ,              XK_e,          start,             {.com = editor}},
+    {  MOD |SHIFT,        XK_t,          start,             {.com = filemanager}},
     // Exit or restart 2bwm
     {  MOD |CONTROL,      XK_q,          twobwm_exit,       {.i=0}},
     {  MOD |CONTROL,      XK_r,          twobwm_restart,    {.i=0}},
